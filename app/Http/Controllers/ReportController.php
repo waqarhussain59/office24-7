@@ -30,10 +30,13 @@ class ReportController extends Controller
         $user = auth()->user();
         $data = [
             'title' => $request->title,
-            'remarks' => $request->remarks,
+            'petitioner' => $request->petitioner,
+            'writ_petition_no' => $request->writ_petition_no,
+
             'status' => $request->status,
             'created_user_id' => $request->user()->id,
-            'updated_user_id' => $request->user()->id,
+//            'updated_user_id' => $request->user()->id,
+
 
 
         ];
@@ -68,12 +71,10 @@ class ReportController extends Controller
 
     public function view(Request $request, $id)
     {
-        $reports = Report::findOrFail($id);
-//dd($reports);
+        $reports = Report::find($id);
         $comments = $reports->remarkss;
-//        dd($comments);
-        // dump($surveys);
-        return view('office.view', compact('reports','comments'));
+
+        return view('office.view', compact('reports', 'comments'));
     }
 
     public function edit($id)
@@ -85,16 +86,24 @@ class ReportController extends Controller
         return view('office.show', compact('reports', 'user', 'images'));
     }
 
-    public function comentCreate(Request $request, $id)
+    public function update(Request $request, $id)
     {
+        $report = Report::where('title', 'LIKE', $request->report_id)->first();
+
         $user = auth()->user();
-        Remark::create ([
-            'report_id' => $request['report_id'],
+        $remark = Remark::create([
+            'report_id' => $report->id,
             'para_no' => $request['para_no'],
 //            'paras' => $request['end_date'],
             'comments' => $request['comments'],
         ]);
-        return redirect()->route('report.list');
+
+        if ($remark) {
+            #Display Success Message in Blade File
+            $arr = array('msg' => 'Comment Added successfully ', 'status' => true);
+        }
+        return Response()->json($arr);
+
 
     }
 
@@ -102,16 +111,12 @@ class ReportController extends Controller
     {
         $reports = Report::find($id);
         $comments = $reports->remarkss;
-//        dd($reports->title);
-//        $data = array(
-//            'reports' => $reports,
-//            'comments' => $comments,
-//        );
-        view()->share(['comments'=> $comments, 'reports' => $reports]);
+//        dd($comments);
+        view()->share(['reports' => $reports, 'comments' => $comments]);
 
         if (!empty($reports)) {
             $pdf = PDF::loadView('office.pdfview');
-            return $pdf->download('pdfview.pdf');
+            return $pdf->download($reports->title.'.pdf');
         }
 
 

@@ -3,6 +3,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <style>
         input[type=checkbox] {
             display: none;
@@ -24,95 +26,87 @@
         <div class="page-content-wrapper">
             <div class="container-fluid" style="width: 80%;margin-left: 0px  !important;">
                 <h4>Update Report</h4>
-                <div class="row g-0 text-center">
-                    <div class="col-sm-6 col-md-8 border border-primary">
 
-                        <div class="carousel-inner" role="listbox">
+                <div class="col-sm-6 col-md-10 border border-primary">
+                    <div style="height:550px;overflow-x:scroll">
 
-                            @foreach($images as $image)
 
-                                <div class="item">
+                        @foreach($images as $image)
 
-                                    <img class="d-block w-100" src="{{ asset($image->url) }}"
-                                         alt="First slide">
+                            <div class="item">
 
-                                </div>
+                                <img class="d-block w-100" src="{{ asset($image->url) }}"
+                                     alt="First slide">
 
-                            @endforeach
-
-                        </div>
-
-                        <a class="left carousel-control" href="#mycarousel" role="button"
-                           data-slide="prev">
-
-                                                <span class="glyphicon glyphicon-chevron-left"
-                                                      aria-hidden="true"></span>
-
-                            <span class="sr-only">Previous</span>
-
-                        </a>
-                        <a class="right carousel-control" href="#mycarousel" role="button"
-                           data-slide="next">
-
-                                                <span class="glyphicon glyphicon-chevron-right"
-                                                      aria-hidden="true"></span>
-
-                            <span class="sr-only">Next</span>
-
-                        </a>
-                    </div>
-
-                    <div class="col-6 col-md-4 border border-primary" style="margin-top: 4%">
-                        <form class="needs-validation"
-                              action="{{ route('report.update',$reports->id) }}"
-                              novalidate
-                              method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div style=" width: 599px;">
-                                <div class="form-group mb-4">
-                                    <label for="validationCustom01">Title</label>
-                                    <input type="text" name="report_id"
-                                           value="{{ $reports->id ?? '' }}"
-                                           class="form-control"
-                                           id="validationCustom01" required>
-                                    {{ $reports->title ?? '' }}
-                                    <span class="text-muted"></span>
-                                </div>
-                                @error('detail')
-                                <p style="color: red"> {{ $message }}</p>
-                                @enderror
-                                <div class="form-group mb-4">
-                                    <label for="validationCustom01">Para no</label>
-                                    <input type="text" name="para_no" class="form-control"
-                                           id="validationCustom01" required>
-                                    <span class="text-muted"></span>
-                                </div>
-                                @error('para_no')
-                                <p style="color: red"> {{ $message }}</p>
-                                @enderror
-                                <div class="form-group mb-4">
-                                    <label for="validationCustom01">Comments</label>
-                                    <textarea class="form-control"
-                                              name="comments"
-                                              id="exampleFormControlTextarea1" rows="3"
-                                              style="width: 100%; height: 150px;padding: 12px 20px;
-                                              box-sizing: border-box;border: 2px solid #ccc;  border-radius: 4px;
-                                                 font-size: 16px;  resize: none;">
-                                                                </textarea>
-                                    <span class="text-muted"></span>
-
-                                </div>
-                                @error('comments')
-                                <p style="color: red"> {{ $message }}</p>
-                                @enderror
-                                <button class="btn btn-success btn-block waves-effect waves-light"
-                                        style="background-color:#034f19;   height: 48px; width: 166px; "
-                                        type="submit">Submit
-                                </button>
                             </div>
-                        </form>
+
+                        @endforeach
+
                     </div>
+                </div>
+
+                <div class="col-sm-6 col-md-2 border border-primary" style="margin-top: 4%">
+                    <form class="needs-validation"
+{{--                          action="{{ route('report.update',$reports->id) }}"--}}
+                          novalidate
+                          method="POST" id="form">
+                        @csrf
+                        @method('PUT')
+                        <div class="alert alert-success d-none" id="msg_div">
+                            <span id="res_message"></span>
+                        </div>
+                        <div style=" width: 406px; padding-top: 34%">
+                            <div class="row">
+                                <div class="col-md-12 mb-3 ml-3" style="margin-bottom: 6%" >
+                                    <label for="validationCustom01">Report Name</label>
+                                    <input type="text" name="report_id" value="{{ $reports->title?? '' }}"  class="form-control"
+                                           id="report_id" required>
+                                    <span class="text-muted"></span>
+                                </div>
+                            </div>
+                            @error('title')
+                            <p style="color: red"> {{ $message }}</p>
+                            @enderror
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3 ml-3">
+                                    <label for="validationCustom01">Para No</label>
+                                    <input type="text" name="para_no" class="form-control"
+                                           id="para_no" placeholder="" required>
+                                </div>
+                            </div>
+                            @error('company_name')
+                            <p style="color: red"> {{ $message }}</p>
+                            @enderror
+                            <div class="row">
+                                <div class="col-md-12 mb-3 ml-3"style="margin-bottom: 6%; margin-top: 2%">
+                                    <label for="validationCustom01">Remarks</label>
+                                    <div class="form-outline">
+                                        <textarea class="form-control" name="comments" id="comments" rows="4" ></textarea>
+                                    </div>
+
+                                </div>
+                            </div>
+                            @error('remarks')
+                            <p style="color: red"> {{ $message }}</p>
+                            @enderror
+{{--                            <div class="row">--}}
+{{--                                <div class="col-md-12 mb-3 ml-3"style="margin-bottom: 6%">--}}
+{{--                                    <label for="validationCustom01">Updated By</label>--}}
+{{--                                    <input type="text" name="updated_user_id" value="{{ auth()->user()->name ?? '' }}"  class="form-control"--}}
+{{--                                           id="validationCustom01" required>--}}
+{{--                                    <span class="text-muted"></span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            @error('updated_user_id')--}}
+{{--                            <p style="color: red"> {{ $message }}</p>--}}
+{{--                            @enderror--}}
+                            <button class="btn btn-success btn-block waves-effect waves-light"
+                                    style="background-color:#034f19;   height: 48px; width: 166px; "
+                                    type="submit">Submit
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -120,7 +114,42 @@
 
 
     <script>
-        document.querySelector('.carousel-inner > div:first-child').classList.add('active');
+
+        $('#form').on('submit',function(event){
+            event.preventDefault();
+            // Get Alll Text Box Id's
+            report_id = $('#report_id').val();
+            para_no = $('#para_no').val();
+            comments = $('#comments').val();
+
+            $.ajax({
+                url: "{{ route('report.update',$reports->id) }}", //Define Post URL
+                type:"PUT",
+                data:{
+                    "_token": "{{ csrf_token() }}",
+                    report_id:report_id,
+                    para_no:para_no,
+                    comments:comments,
+                },
+                //Display Response Success Message
+                success: function(response){
+                    $('#res_message').show();
+                    $('#res_message').html(response.msg);
+                    $('#msg_div').removeClass('d-none');
+
+                    document.getElementById("form").reset();
+                    setTimeout(function(){
+                        $('#res_message').hide();
+                        $('#msg_div').hide();
+                    },4000);
+                },
+            });
+            // document.getElementById('form').reset();
+        });
+
+
+
+
     </script>
 
 @endsection

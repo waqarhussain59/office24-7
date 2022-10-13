@@ -2,8 +2,6 @@
 
 @section('content')
 
-
-
     <div class="main-content">
         <div class="page-content">
 
@@ -16,7 +14,8 @@
                         <div class=" d-flex p-2 center-block">
                             <div class=" d-inline-flex " style="padding-bottom: 7%">
                                 <div class="mt-6 mt-lg-0 flex-1 dark-text-gray-300 px-5  ">
-                                    <h5 class="fw-bold">Report Details</h5>
+                                    <h5 class="fw-bold text-center">IN THE HONORABLE ISLAMABAD HIGH COURT,</h5>
+                                    <h5 class="fw-bold text-center">ISLAMABAD</h5>
                                     <div
                                         class="d-flex flex-column justify-content-center align-items-center align-items-lg-start mt-4">
                                         <div class="truncate  white-space-sm-wrap d-flex align-items-center  ">
@@ -43,36 +42,23 @@
                                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                     <thead>
                                                     <tr>
-
-                                                        <th rowspan="2">Para No</th>
-                                                        <th>Comments</th>
-                                                        <th>Time</th>
+                                                        <th rowspan="3">Para no</th>
+                                                        <th rowspan="3">Remarks</th>
+                                                        <th rowspan="2">Time</th>
                                                     </tr>
                                                     </thead>
 
                                                     <tbody>
-                                                    @if (is_array($comments) || is_object($comments))
-                                                        @foreach ($comments  as $comment)
-                                                            <tr>
-                                                                <td>{{ $comment->para_no ?? '' }}</td>
-                                                                <td>{{ $comment->comments ?? '' }}</td>
-                                                                <td>{{ ($comment->created_at)->format('d-m-Y h:i A') ?? '' }}</td>
-{{--                                                                <td>--}}
-                                                                    {{--                                                                <div class="btn-group" role="group">--}}
-                                                                    {{--                                                                    <a href="{{ route('surveylist', $survey->id) }}"--}}
-                                                                    {{--                                                                       type="button"--}}
-                                                                    {{--                                                                       class="btn btn-outline-secondary btn-sm"--}}
-                                                                    {{--                                                                       data-toggle="tooltip" data-placement="top"--}}
-                                                                    {{--                                                                       title="view">--}}
-                                                                    {{--                                                                        <i class="mdi mdi-eye"></i>--}}
-                                                                    {{--                                                                    </a>--}}
+                                                    @foreach($comments as $data)
+                                                        <tr>
+                                                            <td>{{$data->para_no ?? ''}}</td>
+                                                            <td>
+                                                                {{ $data->comments?? '' }}
+                                                            </td>
+                                                            <td>{{ $data->created_at?? '' }}</td>
 
-                                                                    {{--                                                                </div>--}}
-{{--                                                                </td>--}}
-
-                                                            </tr>
-                                                        @endforeach
-                                                    @endif
+                                                        </tr>
+                                                    @endforeach
                                                     </tbody>
                                                 </table>
 
@@ -91,7 +77,6 @@
 
 
             </div>
-
 
 @endsection
 

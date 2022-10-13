@@ -12,11 +12,11 @@ class RemarkController extends Controller
        ;
         $reports = Report::findOrFail($id);
         //list_surveydd($billboards);
-
+dd($reports);
 //        $detailschedule = $billboards->survey_details;
         // dd($survey_details);
-        $comments = $reports->remarks;
-        // dump($surveys);
-        return view('office.view', compact('reports','comments'));
+//        $comments = $reports->remarks;
+//         dump($surveys);
+        return view('office.view', compact('reports'));
     }
 }

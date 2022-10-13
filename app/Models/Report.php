@@ -13,9 +13,11 @@ class Report extends Model
         'title',
         'remarks',
         'status',
+        'petitioner',
+        'writ_petition_no',
         'images',
         'created_user_id',
-        'updated_user_id'
+//        'updated_user_id'
     ];
 
     public function images()

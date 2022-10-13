@@ -110,10 +110,10 @@
 
 <div class="container-fluid text-center" style="margin-left: 0px  !important;">
     <div class="row content">
-        <div class="col-sm-2 sidenav"style="    padding-top: 3%;">
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
-            <p><a href="#">Link</a></p>
+        <div class="col-sm-2 sidenav"style="height: 208%;    padding-top: 3%;">
+{{--            <p><a href="#">Link</a></p>--}}
+{{--            <p><a href="#">Link</a></p>--}}
+{{--            <p><a href="#">Link</a></p>--}}
         </div>
         <div class="col-sm-10 text-left">
             <main class="py-1">
@@ -124,9 +124,9 @@
     </div>
 </div>
 
-<footer class="container-fluid text-center" style="    margin-top: 1%;">
-    <p>Footer Text</p>
-</footer>
+{{--<footer class="container-fluid text-center" style="    margin-top: 1%;">--}}
+
+{{--</footer>--}}
 
 </body>
 </html>

@@ -100,7 +100,8 @@ class ReportDataTable extends BaseDataTable
 
 
             Column::make('title')->name('title' ?? '')->title('Document Name'),
-            Column::make('remarks')->name('remarks' ?? '')->title('Remarks'),
+            Column::make('writ_petition_no')->name('writ_petition_no' ?? '')->title('writ Petition No'),
+            Column::make('petitioner')->name('petitioner' ?? '')->title('Petitioner'),
             Column::make('status')->name('status' ?? '')->title('Status'),
             Column::make('created_at'),
             Column::make('updated_at'),
